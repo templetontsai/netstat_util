@@ -7,9 +7,12 @@ app = Flask(__name__)
 
 def digCMD(param):
     try:
-        print(param)
-        output = subprocess.check_output(['dig', '+noall', '+answer', param])
-        return json.dumps(output.decode('utf-8'))
+        output = subprocess.check_output(
+            ['dig', '+noall', '+answer', '+short', param]).decode('utf-8')
+
+        output = output.split('\n')[:-1]
+
+        return json.dumps(output)
     except subprocess.CalledProcessError:
         raise
 
@@ -20,12 +23,23 @@ def digBatchCMD(jsonObj):
 
         outputIPList = []
         for i in domainList:
-            output = subprocess.check_output(
-                ['dig', '+noall', '+answer', i]).decode('utf-8')
 
-            outputIPList.append(output)
-        ipDict = {"ip": outputIPList}
-        return json.dumps(ipDict)
+            output = subprocess.check_output(
+                ['dig', '+noall', '+answer', '+short', i]).decode('utf-8')
+            output = output.split('\n')[:-1]
+
+            outputIPList.append({'domain': i, 'ip': output})
+
+        '''
+        with open('batch_dig.txt', 'w') as f:
+            for i in domainList:
+                f.write(i + '\n')
+        output = subprocess.check_output(
+            ['dig', '+noall', '+answer', '+short', '-f', 'batch_dig.txt']).decode('utf-8')
+        output = output.split('\n')
+        '''
+
+        return json.dumps(outputIPList)
     except subprocess.CalledProcessError:
         raise
 
