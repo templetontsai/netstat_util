@@ -95,7 +95,8 @@ def ping(n=1, label='', s=56):
 
 with open('./log', 'a+') as log:
     try:
-        app.run(threaded=True, host='0.0.0.0', port=8000, debug=True)
+        app.run(threaded=True, host='0.0.0.0', port=8000,
+                debug=True, ssl_context='adhoc')
         log.write("done adding wsgi app\n")
     except Exception as e:
         log.write(repr(e))
