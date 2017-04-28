@@ -74,7 +74,7 @@ def dig(label='-h'):
     return digCMD(label)
 
 
-@app.route('/digbatch', methods=['GET', 'POST'])
+@app.route('/digbatch', methods=['POST'])
 def digbatch():
     return digBatchCMD(request.get_json(force=True, cache=True))
 
