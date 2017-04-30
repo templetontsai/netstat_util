@@ -69,6 +69,10 @@ def pingCMD(n, param, s):
     except subprocess.CalledProcessError:
         raise
 
+@app.route('/test')
+@app.route('/test/<label>')
+def test(label=''):
+    return json.dumps(label)
 
 @app.route('/dig')
 @app.route('/dig/<label>')
