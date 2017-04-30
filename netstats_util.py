@@ -7,11 +7,11 @@ app = Flask(__name__)
 
 def digCMD(param):
     try:
-    	print('in the digCMD')
+        print('in the digCMD')
         output = subprocess.check_output(
             ['dig', '+noall', '+answer', '+short', param]).decode('utf-8')
 
-    	print('done with dig))
+        print('done with dig')
         output = output.split('\n')[:-1]
 
         return json.dumps(output)
