@@ -1,1 +1,1 @@
-web: python netstats_util.py {$PORT}
+web: python netstats_util.py

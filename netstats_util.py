@@ -1,6 +1,7 @@
 from flask import Flask, render_template, Response, make_response, request
 import json
 import subprocess
+import os
 
 app = Flask(__name__)
 
@@ -101,7 +102,8 @@ def ping(n=1, label='', s=56):
 
 with open('./log', 'a+') as log:
     try:
-        app.run(threaded=True, host='0.0.0.0', port=8000,
+        port = int(os.environ.get('PORT', 8000))
+        app.run(threaded=True, host='0.0.0.0', port=port,
                 debug=True)
         log.write("done adding wsgi app\n")
     except Exception as e:
