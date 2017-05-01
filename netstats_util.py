@@ -17,7 +17,7 @@ def digCMD(param):
 
         return json.dumps(output)
     except subprocess.CalledProcessError:
-        raise
+        return json.dumps('')
 
 
 def digBatchCMD(jsonObj):
@@ -70,10 +70,12 @@ def pingCMD(n, param, s):
     except subprocess.CalledProcessError:
         raise
 
+
 @app.route('/test')
 @app.route('/test/<label>')
 def test(label=''):
     return json.dumps(label)
+
 
 @app.route('/dig')
 @app.route('/dig/<label>')
