@@ -17,7 +17,7 @@ def digCMD(param):
 
         return json.dumps(output)
     except subprocess.CalledProcessError:
-        return json.dumps('')
+        return json.dumps('None')
 
 
 def digBatchCMD(jsonObj):
